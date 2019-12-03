@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <form #LoginForm="ngForm">
+                <div class="form-group  mt-5">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Login</h2>
+                            <ng-template [ngIf]="error">
+                                <div style="color: red;">Username or password is invalid !
+                                </div>
+                            </ng-template>
+                        </div>
+                        <div class="card-body">
+                            <input class="form-control" type="text" name="UserName" #FirstName="ngModel"
+                                [(ngModel)]="userLogin.userName" placeholder="Username">
+
+                            <input class="form-control mt-3" type="password" name="LastName" id="lnm"
+                                #LastName="ngModel" [(ngModel)]="userLogin.userPassword" placeholder="Password">
+                        </div>
+                        <div class="card-footer">
+
+                            <div class="row lk">
+                                <button type="submit" class="btn btn-success btn-md ml-3 "
+                                    (click)="loginUser(LoginForm)">Login</button>
+                                <a routerLink="/reset" class="mr-2">Reset Password</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</div>
