@@ -19,8 +19,7 @@ public class UserLoginService {
 	@Autowired
 	private PasswordChangeRepository changePasswordRepository;
 
-	
-	
+
 	UserLogin userSuccess = new UserLogin();
 	
 	public List<UserLogin> getUserList() {
@@ -34,30 +33,28 @@ public class UserLoginService {
 		return userLoginRepository.save(userLogin);
 	}
 // for Login User
-	public UserLogin findUserByUserName (UserLogin userLogin)
-	{
+	public UserLogin findUserByUserName (UserLogin userLogin){
 		try {
-			List<UserLogin> userList=userLoginRepository.getUserByUserName(userLogin.getUserName());
-			
-			for(UserLogin user:userList)
-			{
-			System.out.println("in forEach");
-			if(user.getUserName().equals(userLogin.getUserName()) && user.getUserPassword().equals(userLogin.getUserPassword()) ) 
-			{
-				userSuccess.setUserName(userLogin.getUserName());
-				userSuccess.setUserPassword(userLogin.getUserPassword());
-				userSuccess.setUserId(user.getUserId());
-				 return userSuccess;
-			 }
+				List<UserLogin> userList=userLoginRepository.getUserByUserName(userLogin.getUserName());
+					for(UserLogin user:userList)
+						{
+							System.out.println("in forEach");
+							if(user.getUserName().equals(userLogin.getUserName()) && user.getUserPassword().equals(userLogin.getUserPassword()) ) 
+								{
+									userSuccess.setUserName(userLogin.getUserName());
+									userSuccess.setUserPassword(userLogin.getUserPassword());
+									userSuccess.setUserId(user.getUserId());
+									 return userSuccess;
+								 }
+						}
 			}
-		}
 		catch(Exception e)
-		{
-			System.out.println("User Not Found");
-		}
+			{
+				System.out.println("User Not Found");
+			}
 		
 		System.out.println("at the end");
-		 return null;
+		return null;
 	}
 	
 	// Reset password by Update User
@@ -68,7 +65,7 @@ public class UserLoginService {
 				{
 					if(user.getUserName().equals(userLogin.getUserName()) && user.getUserPassword().equals(userLogin.getUserPassword()) ) 
 						{
-							if(userLogin.getUserNewPassword().length()>5) {
+							if(userLogin.getUserNewPassword().length()>=5) {
 								user.setUserPassword(userLogin.getUserNewPassword());
 								userLoginRepository.save(user);
 								PasswordChangeBackup changePass= new PasswordChangeBackup();
@@ -88,21 +85,20 @@ public class UserLoginService {
 		 return -1;
 	}
 
-	// to check user in session
+	// to validate from session
 	public UserLogin getUserByUserName(String userName, String userpassword) {
 		List<UserLogin> userList=userLoginRepository.getUserByUserName(userName);
 		for(UserLogin user:userList)
 			{
 				System.out.println("in forEach by get");
-				if(user.getUserName().equals(userName) && user.getUserPassword() .equals(userpassword) ) {
-					userSuccess.setUserName(userName);
-					userSuccess.setUserPassword(userpassword);
-					userSuccess.setUserId(user.getUserId());
-					 return userSuccess;
-				 }
+				if(user.getUserName().equals(userName) && user.getUserPassword() .equals(userpassword) ) 
+					{
+						userSuccess.setUserName(userName);
+						userSuccess.setUserPassword(userpassword);
+						userSuccess.setUserId(user.getUserId());
+						return userSuccess;
+					}
 			}
-		System.out.println("at the end by get");
 		 return null;
 	}
-
 }

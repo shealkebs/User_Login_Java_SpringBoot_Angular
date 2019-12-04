@@ -14,9 +14,6 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 
-
-
-
 @Entity
 @Table(name="UserLogin")
 public class UserLogin {
@@ -80,12 +77,8 @@ public class UserLogin {
 		this.userNewPassword = userNewPassword;
 	}
 	
-
 	@Override
 	public String toString() {
 		return "UserLogin [userId=" + userId + ", userName=" + userName + "]";
-	}
-
-	
-		
+	}	
 }

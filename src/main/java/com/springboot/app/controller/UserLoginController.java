@@ -23,8 +23,6 @@ import com.springboot.app.service.PasswordChangeBackupService;
 import com.springboot.app.service.UserLoginService;
 
 
-
-
 @CrossOrigin(origins="http://localhost:4200")
 @RestController
 @RequestMapping("/api/UserLoginController")
@@ -35,15 +33,16 @@ public class UserLoginController {
 	@Autowired
 	private PasswordChangeBackupService passwordChangeBackupService;
 	
-	
 	@GetMapping(value="/viewUsers")
 	public List<PasswordChangeBackup> showAll(HttpSession session) {
 		String u1=(String) session.getAttribute("userName");
 		String u2=(String) session.getAttribute("userpassword");
 		UserLogin uLogin=userLoginService.getUserByUserName(u1,u2);
-		if(uLogin.getUserName() != null && uLogin.getUserPassword() != null) {
-		List<PasswordChangeBackup> list=passwordChangeBackupService.getPasswordChangeBackupList(u1);
-		return  (list);
+		
+		if(uLogin.getUserName() != null && uLogin.getUserPassword() != null)
+		{
+			List<PasswordChangeBackup> list=passwordChangeBackupService.getPasswordChangeBackupList(u1);
+			return  (list);
 		}
 		return null;
 	}
@@ -53,13 +52,12 @@ public class UserLoginController {
 		 return userLoginService.insertUser(userLogin);
 	 }
 
-	
 	@PostMapping(value="/loginUser",headers="Accept=application/json")
 	public UserLogin getUserByUserName(@Valid @RequestBody UserLogin userLogin, HttpSession session) 
 	{
-	
 		UserLogin uLogin=userLoginService.findUserByUserName(userLogin);
-		if(uLogin != null) {
+		if(uLogin != null) 
+		{
 			session.setAttribute("userName", userLogin.getUserName());
 			session.setAttribute("userpassword", userLogin.getUserPassword());
 			uLogin.setUserPassword("null");
@@ -68,7 +66,6 @@ public class UserLoginController {
 		}
 		return  null;	
 	}
-	
 	
 	@PutMapping(value="/updateUser",headers="Accept=application/json")
 	public String updateUserByUserName(@Valid @RequestBody UserLogin userLogin) {
@@ -81,15 +78,7 @@ public class UserLoginController {
 		}
 		return  "Unable to update User Password as Old Password or New Password length Dosent Match ";
 	}	
-	
-//	@GetMapping(value="/viewUsers/{userName}/{userPassword}",headers="Accept=application/json")
-//	public UserLogin getUserByUserName(@PathVariable(value="userName") String userName,
-//			@PathVariable(value="userPassword") String userPassword) {
-//		UserLogin uLogin=userLoginService.getUserByUserName(userName,userPassword);		
-//	return  (uLogin);	
-//	}
 
-	
 	@PostMapping("/logoutUser")
 	public String destroySession(HttpServletRequest request) {
 		request.getSession().invalidate();
@@ -97,11 +86,7 @@ public class UserLoginController {
 //		{
 //			request.getSession().invalidate();
 //			return "Session Expired";
-//		}
-		
+//		}	
 		return "Session Expired";
 	}
-
 }
-	
-

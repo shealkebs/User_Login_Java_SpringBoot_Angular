@@ -20,10 +20,8 @@ import com.springboot.app.service.PasswordChangeBackupService;
 @RequestMapping("/api/BackupController")
 public class BackupController {
 
-	
 	@Autowired
 	private PasswordChangeBackupService passwordChangeBackupService;
-	
 	
 	@GetMapping(value="/UpdateLog")
 	public List<PasswordChangeBackup>showUpdated() {
@@ -32,10 +30,8 @@ public class BackupController {
 		return  (list);
 	}
 	
-	
 	@PostMapping(value="/changePassLog",headers="Accept=application/json")
 	 public PasswordChangeBackup insertChangePass(@Valid @RequestBody PasswordChangeBackup passwordChangeBackup){
 		 return passwordChangeBackupService.insertChangePass(passwordChangeBackup);
 	 }
-	
 }

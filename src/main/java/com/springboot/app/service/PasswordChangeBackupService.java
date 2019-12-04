@@ -16,22 +16,15 @@ public class PasswordChangeBackupService {
 	@Autowired
 	private PasswordChangeRepository changePasswordRepository;
 	
-	
 	public List<PasswordChangeBackup> getUpdatedList() {
-		
 		return changePasswordRepository.findAll();
 	}
 
-
-
 	public PasswordChangeBackup insertChangePass(@Valid PasswordChangeBackup passwordChangeBackup) {
-		
 		return changePasswordRepository.save(passwordChangeBackup);
 	}
 
-
 	public List<PasswordChangeBackup> getPasswordChangeBackupList(String userName) {
-		// TODO Auto-generated method stub
 		return changePasswordRepository.getUserByUserName(userName);
 	}
 }

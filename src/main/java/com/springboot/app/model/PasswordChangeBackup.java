@@ -19,7 +19,6 @@ import org.hibernate.annotations.CreationTimestamp;
 @Table
 public class PasswordChangeBackup {
 
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int srNo;
@@ -37,7 +36,6 @@ public class PasswordChangeBackup {
 		super();
 	}
 
-
 	public PasswordChangeBackup(int srNo, int userID, String userName, String userOldPassword, String userNewPassword,
 			Date passwordChangeDate) {
 		super();
@@ -49,72 +47,51 @@ public class PasswordChangeBackup {
 		this.passwordChangeDate = passwordChangeDate;
 	}
 
-
 	public int getSrNo() {
 		return srNo;
 	}
-
 
 	public void setSrNo(int srNo) {
 		this.srNo = srNo;
 	}
 
-
 	public int getUserID() {
 		return userID;
 	}
-
 
 	public void setUserID(int userID) {
 		this.userID = userID;
 	}
 
-
 	public String getUserName() {
 		return userName;
 	}
-
 
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 
-
 	public String getUserOldPassword() {
 		return userOldPassword;
 	}
-
 
 	public void setUserOldPassword(String userOldPassword) {
 		this.userOldPassword = userOldPassword;
 	}
 
-
 	public String getUserNewPassword() {
 		return userNewPassword;
 	}
-
 
 	public void setUserNewPassword(String userNewPassword) {
 		this.userNewPassword = userNewPassword;
 	}
 
-
 	public Date getPasswordChangeDate() {
 		return passwordChangeDate;
 	}
 
-
 	public void setPasswordChangeDate(Date passwordChangeDate) {
 		this.passwordChangeDate = passwordChangeDate;
 	}
-
-
-	@Override
-	public String toString() {
-		return "PasswordChangeBackup [srNo=" + srNo + ", userID=" + userID + ", userName=" + userName
-				+ ", userOldPassword=" + userOldPassword + ", userNewPassword=" + userNewPassword
-				+ ", passwordChangeDate=" + passwordChangeDate + "]";
-	}	
-	
 }
