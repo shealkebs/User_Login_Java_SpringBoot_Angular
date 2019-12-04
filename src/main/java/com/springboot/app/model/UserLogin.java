@@ -1,18 +1,19 @@
 package com.springboot.app.model;
 
 
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Size;
+
+
 
 
 
@@ -25,27 +26,16 @@ public class UserLogin {
 	private int userId;
 	
 	@Column(unique = true)
+	@Size(min = 5, max = 15)
 	private String userName;
 	
+	@Size(min = 5, max = 15)
 	private String userPassword;
 	
 	@Transient
+	@Size(min = 5, max = 15)
 	private String userNewPassword;
 	
-	@OneToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
-	
-	private List<PasswordChangeBackup> passwordChangeBackup;
-
-	public UserLogin(int userId, String userName, String userPassword, String userNewPassword,
-			List<PasswordChangeBackup> passwordChangeBackup) {
-		super();
-		this.userId = userId;
-		this.userName = userName;
-		this.userPassword = userPassword;
-		this.userNewPassword = userNewPassword;
-		this.passwordChangeBackup = passwordChangeBackup;
-	}
-
 	public UserLogin() {
 		super();
 	}
@@ -89,18 +79,11 @@ public class UserLogin {
 	public void setUserNewPassword(String userNewPassword) {
 		this.userNewPassword = userNewPassword;
 	}
-	public List<PasswordChangeBackup> getPasswordChangeBackup() {
-		return passwordChangeBackup;
-	}
-
-	public void setPasswordChangeBackup(List<PasswordChangeBackup> passwordChangeBackup) {
-		this.passwordChangeBackup = passwordChangeBackup;
-	}
+	
 
 	@Override
 	public String toString() {
-		return "UserLogin [userId=" + userId + ", userName=" + userName + ", userPassword=" + userPassword
-				+ ", userNewPassword=" + userNewPassword + "]";
+		return "UserLogin [userId=" + userId + ", userName=" + userName + "]";
 	}
 
 	

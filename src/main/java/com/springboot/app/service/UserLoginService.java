@@ -33,7 +33,7 @@ public class UserLoginService {
 		
 		return userLoginRepository.save(userLogin);
 	}
-
+// for Login User
 	public UserLogin findUserByUserName (UserLogin userLogin)
 	{
 		try {
@@ -42,7 +42,7 @@ public class UserLoginService {
 			for(UserLogin user:userList)
 			{
 			System.out.println("in forEach");
-			if(user.getUserName().equals(userLogin.getUserName()) && user.getUserPassword() .equals(userLogin.getUserPassword()) ) 
+			if(user.getUserName().equals(userLogin.getUserName()) && user.getUserPassword().equals(userLogin.getUserPassword()) ) 
 			{
 				userSuccess.setUserName(userLogin.getUserName());
 				userSuccess.setUserPassword(userLogin.getUserPassword());
@@ -60,31 +60,35 @@ public class UserLoginService {
 		 return null;
 	}
 	
-	
+	// Reset password by Update User
 
 	public int updateUserByUserName( @Valid UserLogin userLogin) {
 		List<UserLogin> userList=userLoginRepository.getUserByUserName(userLogin.getUserName() );
-		for(UserLogin user:userList)
-			{
-				if(user.getUserName().equals(userLogin.getUserName()) && user.getUserPassword().equals(userLogin.getUserPassword()) ) 
-					{
-						user.setUserPassword(userLogin.getUserNewPassword());
-						userLoginRepository.save(user);
-						PasswordChangeBackup changePass= new PasswordChangeBackup();
-						changePass.setUserID(user.getUserId());
-						changePass.setUserName(user.getUserName());
-						changePass.setUserOldPassword(userLogin.getUserPassword());
-						changePass.setUserNewPassword(userLogin.getUserNewPassword());
-						changePasswordRepository.save(changePass);
-						return 1;
-					}
-			}
-		 if(!userList.contains(userLogin.getUserName())) {
-			return 0;
-		}
-		return -1;
+			for(UserLogin user:userList)
+				{
+					if(user.getUserName().equals(userLogin.getUserName()) && user.getUserPassword().equals(userLogin.getUserPassword()) ) 
+						{
+							if(userLogin.getUserNewPassword().length()>5) {
+								user.setUserPassword(userLogin.getUserNewPassword());
+								userLoginRepository.save(user);
+								PasswordChangeBackup changePass= new PasswordChangeBackup();
+								changePass.setUserID(user.getUserId());
+								changePass.setUserName(user.getUserName());
+								changePass.setUserOldPassword(userLogin.getUserPassword());
+								changePass.setUserNewPassword(userLogin.getUserNewPassword());
+								changePasswordRepository.save(changePass);
+								return 1;
+							}
+						}
+				}
+		 if(userList.isEmpty()) 
+			 {
+				return 0;
+			 }
+		 return -1;
 	}
 
+	// to check user in session
 	public UserLogin getUserByUserName(String userName, String userpassword) {
 		List<UserLogin> userList=userLoginRepository.getUserByUserName(userName);
 		for(UserLogin user:userList)
