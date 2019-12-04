@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.springboot.app.model.PasswordChangeBackup;
 import com.springboot.app.model.UserLogin;
 import com.springboot.app.service.PasswordChangeBackupService;
@@ -53,7 +55,7 @@ public class UserLoginController {
 	 }
 
 	@PostMapping(value="/loginUser",headers="Accept=application/json")
-	public UserLogin getUserByUserName(@Valid @RequestBody UserLogin userLogin, HttpSession session) 
+	public  UserLogin getUserByUserName(@Valid @RequestBody UserLogin userLogin, HttpSession session) 
 	{
 		UserLogin uLogin=userLoginService.findUserByUserName(userLogin);
 		if(uLogin != null) 
@@ -64,6 +66,8 @@ public class UserLoginController {
 			session.setMaxInactiveInterval(60);
 			return  (uLogin);
 		}
+		String message ="username or password is incorrect";
+		JsonObject jsonObject = new JsonParser().parse(message).getAsJsonObject();
 		return  null;	
 	}
 	

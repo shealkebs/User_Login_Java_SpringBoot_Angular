@@ -60,6 +60,7 @@ public class UserLoginService {
 	// Reset password by Update User
 
 	public int updateUserByUserName( @Valid UserLogin userLogin) {
+		try {
 		List<UserLogin> userList=userLoginRepository.getUserByUserName(userLogin.getUserName() );
 			for(UserLogin user:userList)
 				{
@@ -82,11 +83,16 @@ public class UserLoginService {
 			 {
 				return 0;
 			 }
+		}catch(NullPointerException e) {
+			System.out.println("No records available");
+		}
 		 return -1;
 	}
 
 	// to validate from session
 	public UserLogin getUserByUserName(String userName, String userpassword) {
+		
+		try {
 		List<UserLogin> userList=userLoginRepository.getUserByUserName(userName);
 		for(UserLogin user:userList)
 			{
@@ -99,6 +105,10 @@ public class UserLoginService {
 						return userSuccess;
 					}
 			}
+		}
+		catch(NullPointerException e) {
+			System.out.println("No records available");
+		}
 		 return null;
 	}
 }

@@ -11,6 +11,7 @@ import javax.persistence.Id;
 
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 
@@ -23,14 +24,14 @@ public class UserLogin {
 	private int userId;
 	
 	@Column(unique = true)
-	@Size(min = 5, max = 15)
+	@Pattern(regexp="^[a-zA-Z][a-zA-Z0-9]{3,15}$")
 	private String userName;
 	
-	@Size(min = 5, max = 15)
+	@Pattern(regexp="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{5,20}$")
 	private String userPassword;
 	
 	@Transient
-	@Size(min = 5, max = 15)
+	@Pattern(regexp="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{5,20}$")
 	private String userNewPassword;
 	
 	public UserLogin() {
